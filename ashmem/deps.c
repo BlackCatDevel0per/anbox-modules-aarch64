@@ -35,7 +35,9 @@ static kallsyms_lookup_name_t get_kallsyms_lookup_name_ptr(void)
 
 	return addr;
 }
+/*
 #endif
+*/
 
 /*
  * On kernel 5.7 and later, kallsyms_lookup_name() can no longer be called from a kernel
