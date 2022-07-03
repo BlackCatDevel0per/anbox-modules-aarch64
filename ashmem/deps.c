@@ -3,11 +3,13 @@
 #include <linux/kprobes.h>
 #include <linux/version.h>
 
+/*
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5,7,0))
 
 #ifndef CONFIG_KPROBES
 # error "Your kernel does not support KProbes, but this is required to compile ashmem as a kernel module on kernel 5.7 and later"
 #endif
+*/
 
 typedef unsigned long (*kallsyms_lookup_name_t)(const char *name);
 
