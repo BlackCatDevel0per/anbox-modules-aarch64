@@ -2446,8 +2446,7 @@ static int binder_translate_binder(struct flat_binder_object *fp,
 		goto done;
 	}
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5,15,2))
-#	if (security_binder_transfer_binder(proc->cred, target_proc->cred)) {
-if (security_binder_transfer_binder(proc->tsk, target_proc->tsk)) {
+	if (security_binder_transfer_binder(proc->cred, target_proc->cred)) {
 #else
 	if (security_binder_transfer_binder(proc->tsk, target_proc->tsk)) {
 #endif
@@ -2497,8 +2496,7 @@ static int binder_translate_handle(struct flat_binder_object *fp,
 		return -EINVAL;
 	}
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5,15,2))
-#	if (security_binder_transfer_binder(proc->tsk, target_proc->tsk)) {
-	if (security_binder_transfer_binder(proc->tsk, target_proc->tsk)) {
+	if (security_binder_transfer_binder(proc->cred, target_proc->cred)) {
 #else
 	if (security_binder_transfer_binder(proc->tsk, target_proc->tsk)) {
 #endif
@@ -2590,9 +2588,7 @@ static int binder_translate_fd(u32 fd, binder_size_t fd_offset,
 		goto err_fget;
 	}
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5,15,2))
-// 	ret = security_binder_transfer_file(proc->cred, target_proc->cred, file);
-	ret = security_binder_transfer_file(proc->tsk, target_proc->tsk, file);
-
+	ret = security_binder_transfer_file(proc->cred, target_proc->cred, file);
 #else
 	ret = security_binder_transfer_file(proc->tsk, target_proc->tsk, file);
 #endif
